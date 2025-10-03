@@ -670,6 +670,7 @@ header .texts p{
   justify-content: flex-start;
   align-items: center;
   padding-left: 2rem;
+  max-width: 95%;
 }
 
 .container-how-works .content .bullets .bullet .p-number{
@@ -829,7 +830,6 @@ header .texts p{
 }
 
 .container-projects .project iframe{
-  
   height: auto;
   max-width: 400px;
   min-width: 320px;
@@ -903,6 +903,14 @@ header .texts p{
   padding: 0 1rem;
   margin: 2rem 0;
 }
+
+.container-projects .project iframe{
+  height: auto;
+  max-width: 400px;
+  min-width: none;
+  width: 95%;
+}
+
 
 }
 
@@ -1336,6 +1344,149 @@ width: 100%;
 }
 
 }
+
+
+
+/* FORM */
+
+.container-form{
+  background: url(/images/photos/bg-img-form-1.jpg) no-repeat center center;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  width: 100%;
+}
+
+.container-form .form-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 700px;
+  max-width: 90%;
+}
+
+.container-form .form-box h2{
+  font-family: var(--title);
+  font-size: 48px;
+  margin-bottom: 1rem;
+}
+
+
+.container-form .form-box form{
+  display: flex;
+  flex-direction: column;
+}
+
+.container-form .form-box form .line{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.container-form .form-box form input, .container-form .form-box form select{
+  background: none;
+  border: 1px var(--white) solid;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 20px;
+  padding: 1rem 2rem 1rem 0.6rem;
+  width: 45%;
+  min-width: 200px;
+  margin-bottom: 30px;
+}
+
+.container-form .form-box form textarea{
+  background: none;
+  border: 1px var(--white) solid;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 20px;
+  padding: 1rem 2rem 1rem 0.6rem;
+  width: 100%;
+  margin-bottom: 30px;
+} 
+
+.container-form .form-box form label {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+.container-form .form-box form label input{ /* TIPO CHECKBOX */
+  border-radius: 7px;
+  margin: 0;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.container-form .form-box form label p{
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.container-form .form-box form button{
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 20px 0;
+  color: var(--white);
+  background-color: var(--blue);
+  border-radius: 12px;
+}
+
+
+/* FORM - RESPONSIVIDADE */
+
+/* Mobile (até 480px) */
+@media (max-width: 480px) {
+  /* ajustes para mobile pequeno */
+    .container-form .form-box form input, .container-form .form-box form select{
+  background: none;
+  border: 1px var(--white) solid;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 20px;
+  padding: 1rem 2rem 1rem 0.6rem;
+  width: 100%;
+  min-width: none;
+  margin-bottom: 30px;  
+}
+}
+
+/* Tablet (481px a 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  /* ajustes para tablet */
+  .container-form .form-box form input, .container-form .form-box form select{
+  background: none;
+  border: 1px var(--white) solid;
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 20px;
+  padding: 1rem 2rem 1rem 0.6rem;
+  width: 48%;
+  margin-bottom: 30px;
+}
+
+}
+
+/* Desktop grande (1200px a 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  /* ajustes para desktop grande */
+}
+
+/* Desktop muito grande 1440px+ */
+@media (min-width: 1440px) {
+  /* espaçamentos tipografia etc. */
+}
+
+
+
+
+
 
 
 
