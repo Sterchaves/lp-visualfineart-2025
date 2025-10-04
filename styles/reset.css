@@ -7,31 +7,31 @@
   box-sizing: border-box;
   font-family: var(--body);
   text-decoration: none;
-  border: none; 
+  border: none;
   /* border: red solid 1px; */
 }
 
 /* Fonte e cor padrão da aplicação */
 body {
-  background-color: var(--white) ;
+  background-color: var(--white);
   color: var(--black);
   width: 100%;
 }
 
 ul {
-  list-style: none;  
+  list-style: none;
 }
 
-:root{
-  --white: #F8F8F8; 
-  --black: #111111; 
---gold: #C2A36B; 
---blue: #123C69; 
---green: #3C4C3A; 
---gray-light-bg: #E5E5E5; 
---gray-dark-bg: #1E1E1E; 
---gray: #4C4C4C; 
---gray-details: #A9A9A9; 
+:root {
+  --white: #F8F8F8;
+  --black: #111111;
+  --gold: #C2A36B;
+  --blue: #123C69;
+  --green: #3C4C3A;
+  --gray-light-bg: #E5E5E5;
+  --gray-dark-bg: #1E1E1E;
+  --gray: #4C4C4C;
+  --gray-details: #A9A9A9;
   --title: 'Playfair Display', serif;
   --body: 'Montserrat', sans-serif;
 }
