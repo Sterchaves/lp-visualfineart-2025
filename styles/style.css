@@ -946,12 +946,12 @@ header .texts p {
   flex-direction: row-reverse;
 }
 
-.container-projects .project iframe {
+.container-projects iframe {
   height: auto;
   max-width: 400px;
   min-width: 320px;
   aspect-ratio: 16 / 9;
-  border-radius: 25px;
+  border-radius: 18px;
 }
 
 .container-projects .project .texts {
@@ -1549,15 +1549,34 @@ header .texts p {
 /* FORM */
 
 .container-form {
-  /*background: url(/images/photos/bg-img-form-1.jpg) no-repeat center center;*/
-  background-color: brown;
+ background: url(/images/photos/bg-img-form-1.jpg) no-repeat bottom center;
+ background-size: cover;
   color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 5rem 2rem;
   width: 100%;
+
+    position: relative;    /* ancora o overlay */
+  isolation: isolate;    /* garante pilha de z-index própria */
 }
+
+/* overlay preto translúcido sobre o background */
+.container-form::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.479);  /* ajuste a opacidade aqui */
+  z-index: 0;                   /* fica atrás do conteúdo */
+}
+
+/* garante que o conteúdo fique acima do overlay */
+.container-form > *{
+  position: relative;
+  z-index: 1;
+}
+
 
 .container-form .form-box {
   display: flex;
