@@ -10,7 +10,7 @@
     Visual Fine Art - Photo and Video - Interior Design and Architecture
   </title>
 
-  
+
 </head>
 
 <body>
@@ -102,16 +102,12 @@
   <section class="container-projects">
     <h2>Our Projects</h2>
     <div class="project one">
-<iframe
-  width="882"
-  height="496"
-  src="https://www.youtube.com/embed/00VkPlQWXz4?autoplay=0&controls=1&modestbranding=1&rel=0&fs=1&playsinline=1"
-  title="Lux Smart Home - Commercial"
-  frameborder="0"
-  allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"
-  allowfullscreen
-  referrerpolicy="strict-origin-when-cross-origin">
-</iframe>   
+      <iframe width="882" height="496"
+        src="https://www.youtube.com/embed/00VkPlQWXz4?autoplay=0&controls=1&modestbranding=1&rel=0&fs=1&playsinline=1"
+        title="Lux Smart Home - Commercial" frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture; clipboard-write" allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin">
+      </iframe>
 
       <div class="texts">
         <h3>Lux Smart Home — Commercial Film</h3>
@@ -129,16 +125,12 @@
     </div>
 
     <div class="project two">
-<iframe
-  width="882"
-  height="496"
-  src="https://www.youtube.com/embed/A4nI4LJIsHU?list=PLSM5GT1F7uSNeNRjjJkogbjju05pZEkZ2&controls=1&fs=1&modestbranding=1&rel=0&playsinline=1"
-  title="Delray Beach Project - Casa Petrus Commercial"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen>
-</iframe>
+      <iframe width="882" height="496"
+        src="https://www.youtube.com/embed/A4nI4LJIsHU?list=PLSM5GT1F7uSNeNRjjJkogbjju05pZEkZ2&controls=1&fs=1&modestbranding=1&rel=0&playsinline=1"
+        title="Delray Beach Project - Casa Petrus Commercial" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+      </iframe>
 
       <div class="texts">
         <h3>Casa Petrus — Del Ray Beach </h3>
@@ -286,112 +278,114 @@
   <section class="container-form">
     <div class="form-box">
       <h2>Request a Quote</h2>
-<form
-  action="https://visualshumacher.us13.list-manage.com/subscribe/post?u=7cb7043b93f956ee4529cd88f&amp;id=6d38acfe0c&amp;f_id=001dc2e1f0"
-  method="POST"
-  id="mc-embedded-subscribe-form"
-  name="mc-embedded-subscribe-form"
-  class="validate"
-  target="_blank"
-  novalidate>
+      <form id="lead-form" novalidate>
 
-  <!-- Mailchimp obrigatórios -->
-  <input type="hidden" name="u" value="7cb7043b93f956ee4529cd88f">
-  <input type="hidden" name="id" value="6d38acfe0c">
-  <!-- opcional: tag para organizar seus leads no Mailchimp -->
-  <input type="hidden" name="TAGS" value="Interior Design">
+        <!-- opcional: tag para organizar seus leads no Mailchimp -->
+        <input type="hidden" name="TAGS" value="Interior Design">
 
-  <div class="line one">
-    <div class="field">
-      <label for="name">Name*</label>
-      <!-- name trocado para FNAME -->
-      <input type="text" id="name" name="FNAME" placeholder="Name*" required />
-    </div>
-    <div class="field">
-      <label for="email">Email*</label>
-      <!-- name trocado para EMAIL -->
-      <input type="email" id="email" name="EMAIL" placeholder="Email*" required />
-    </div>
+        <div class="line one">
+          <div class="field">
+            <label for="name">Name*</label>
+            <!-- name trocado para FNAME -->
+            <input type="text" id="name" name="FNAME" placeholder="Name*" required />
+          </div>
+          <div class="field">
+            <label for="email">Email*</label>
+            <!-- name trocado para EMAIL -->
+            <input type="email" id="email" name="EMAIL" placeholder="Email*" required />
+          </div>
+        </div>
+
+        <div class="line two">
+          <div class="field">
+            <label for="phone">WhatsApp (E.164)*</label>
+            <!-- name trocado para PHONE (Mailchimp) -->
+            <input id="phone" type="tel" name="PHONE" placeholder="+1XXXXXXXXXX" required inputmode="tel"
+              autocomplete="tel" pattern="^\+1\d{10}$"
+              title="Use the US E.164 format: +1 followed by 10 digits (e.g., +13051234567)"
+              aria-describedby="phone-help" />
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <!-- name trocado para COMPANY -->
+            <input id="company" type="text" name="COMPANY" placeholder="Company" />
+          </div>
+        </div>
+
+        <div class="line three">
+          <div class="field">
+            <label for="project_type">Project Type*</label>
+            <!-- name trocado para PROJECT -->
+            <select id="project_type" name="PROJECT" class="select--light" required>
+              <option value="" disabled selected hidden>Project Type</option>
+              <option>Interior Design</option>
+              <option>Residential Architecture</option>
+              <option>Commercial Architecture</option>
+              <option>Real Estate Listing</option>
+              <option>Construction Progress</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="city">City*</label>
+            <!-- name trocado para CITY -->
+            <input id="city" type="text" name="CITY" placeholder="City" required />
+          </div>
+        </div>
+
+        <div class="line four">
+          <div class="field">
+            <label for="budget">Estimated Budget*</label>
+            <!-- name trocado para BUDGET -->
+            <select id="budget" name="BUDGET" class="select--light" required>
+              <option value="" disabled selected hidden>Estimated Budget</option>
+              <option>Under $2,500</option>
+              <option>$2,500–$5,000</option>
+              <option>$5,000–$10,000</option>
+              <option>$10,000+</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="timeline">Timeline*</label>
+            <!-- name trocado para TIMELINE -->
+            <select id="timeline" name="TIMELINE" class="select--light" required>
+              <option value="" disabled selected hidden>Timeline</option>
+              <option>ASAP (2–3 weeks)</option>
+              <option>1–2 months</option>
+              <option>3+ months</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-textarea">
+          <label for="notes">Project details</label>
+          <!-- name trocado para NOTES -->
+          <textarea id="notes" name="NOTES" placeholder="Tell us about the project…"></textarea>
+        </div>
+
+        <label id="check">
+          <input id="consent" type="checkbox" required />
+          <p>By submitting, you agree to be contacted about your quote via WhatsApp or email. Message and data rates may
+            apply.</p>
+        </label>
+
+        <!-- Honeypot anti-spam do Mailchimp (mantém como está/oculto) -->
+        <div style="position:absolute; left:-5000px;" aria-hidden="true">
+          <input type="text" name="b_7cb7043b93f956ee4529cd88f_6d38acfe0c" tabindex="-1" value="">
+        </div>
+
+        <button type="submit" class="btn-primary" id="mc-embedded-subscribe">Send Request</button>
+      </form>
+
+<!-- Modal dinâmico -->
+<div id="lead-modal" aria-hidden="true" style="
+  position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.5); z-index:9999;">
+  <div style="background:#fff; max-width:520px; width:92%; padding:24px; border-radius:16px; text-align:center;">
+    <h3 id="lead-modal-title" style="margin:0 0 8px;"></h3>
+    <p id="lead-modal-msg" style="margin:0 0 16px;"></p>
+    <button id="lead-modal-close" class="btn-primary" style="padding:.6rem 1rem;">OK</button>
   </div>
-
-  <div class="line two">
-    <div class="field">
-      <label for="phone">WhatsApp (E.164)*</label>
-      <!-- name trocado para PHONE (Mailchimp) -->
-      <input id="phone" type="tel" name="PHONE" placeholder="+1XXXXXXXXXX" required inputmode="tel"
-        autocomplete="tel" pattern="^\+1\d{10}$"
-        title="Use the US E.164 format: +1 followed by 10 digits (e.g., +13051234567)"
-        aria-describedby="phone-help" />
-    </div>
-    <div class="field">
-      <label for="company">Company</label>
-      <!-- name trocado para COMPANY -->
-      <input id="company" type="text" name="COMPANY" placeholder="Company" />
-    </div>
-  </div>
-
-  <div class="line three">
-    <div class="field">
-      <label for="project_type">Project Type*</label>
-      <!-- name trocado para PROJECT -->
-      <select id="project_type" name="PROJECT" class="select--light" required>
-        <option value="" disabled selected hidden>Project Type</option>
-        <option>Interior Design</option>
-        <option>Residential Architecture</option>
-        <option>Commercial Architecture</option>
-        <option>Real Estate Listing</option>
-        <option>Construction Progress</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="city">City*</label>
-      <!-- name trocado para CITY -->
-      <input id="city" type="text" name="CITY" placeholder="City" required />
-    </div>
-  </div>
-
-  <div class="line four">
-    <div class="field">
-      <label for="budget">Estimated Budget*</label>
-      <!-- name trocado para BUDGET -->
-      <select id="budget" name="BUDGET" class="select--light" required>
-        <option value="" disabled selected hidden>Estimated Budget</option>
-        <option>Under $2,500</option>
-        <option>$2,500–$5,000</option>
-        <option>$5,000–$10,000</option>
-        <option>$10,000+</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="timeline">Timeline*</label>
-      <!-- name trocado para TIMELINE -->
-      <select id="timeline" name="TIMELINE" class="select--light" required>
-        <option value="" disabled selected hidden>Timeline</option>
-        <option>ASAP (2–3 weeks)</option>
-        <option>1–2 months</option>
-        <option>3+ months</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="field-textarea">
-    <label for="notes">Project details</label>
-    <!-- name trocado para NOTES -->
-    <textarea id="notes" name="NOTES" placeholder="Tell us about the project…"></textarea>
-  </div>
-
-  <label id="check">
-    <input id="consent" type="checkbox" required />
-    <p>By submitting, you agree to be contacted about your quote via WhatsApp or email. Message and data rates may apply.</p>
-  </label>
-
-  <!-- Honeypot anti-spam do Mailchimp (mantém como está/oculto) -->
-  <div style="position:absolute; left:-5000px;" aria-hidden="true">
-    <input type="text" name="b_7cb7043b93f956ee4529cd88f_6d38acfe0c" tabindex="-1" value="">
-  </div>
-
-  <button type="submit" class="btn-primary" id="mc-embedded-subscribe">Send Request</button>
-</form>
+</div>
 
     </div>
 

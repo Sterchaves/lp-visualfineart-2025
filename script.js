@@ -86,3 +86,62 @@ document.addEventListener('DOMContentLoaded', () => {
     faqs.forEach(faq => ro.observe(faq.querySelector('.answer')));
   }
 });
+
+
+
+
+
+// FORM THANK YOU
+  (function () {
+    const form = document.getElementById("lead-form");
+    const modal = document.getElementById("lead-modal");
+    const titleEl = document.getElementById("lead-modal-title");
+    const msgEl = document.getElementById("lead-modal-msg");
+    const closeBtn = document.getElementById("lead-modal-close");
+
+    function openModal(title, msg) {
+      titleEl.textContent = title;
+      msgEl.textContent = msg;
+      modal.style.display = "flex";
+    }
+    function closeModal() { modal.style.display = "none"; }
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const fd = new FormData(form);
+      // montar payload exatamente com as Merge Tags do Mailchimp
+      const payload = {
+        EMAIL: fd.get("EMAIL"),
+        FNAME: fd.get("FNAME"),
+        PHONE: fd.get("PHONE"),
+        COMPANY: fd.get("COMPANY"),
+        PROJECT: fd.get("PROJECT"),
+        CITY: fd.get("CITY"),
+        BUDGET: fd.get("BUDGET"),
+        TIMELINE: fd.get("TIMELINE"),
+        NOTES: fd.get("NOTES"),
+        TAGS: "Interior Design",
+      };
+
+      try {
+        const resp = await fetch("/api/subscribe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await resp.json();
+
+        if (data.ok) {
+          openModal("Request received! ✅", data.message || "We’ll contact you shortly.");
+          form.reset();
+        } else {
+          openModal("Oops…", data.message || "Could not send your request. Please try again.");
+        }
+      } catch (err) {
+        openModal("Oops…", "Network error. Please try again in a moment.");
+      }
+    });
+  })();
