@@ -661,7 +661,7 @@ header .texts p {
 }
 
 .container-how-works .image {
-  background: url(/images/photos/project-two-2.jpg) no-repeat center center;
+  background: url(/images/photos/how-img-1.jpg) no-repeat center center;
   background-size: cover;
   width: 900px;
   max-width: 90%;
@@ -704,6 +704,7 @@ header .texts p {
   justify-content: flex-start;
   align-items: center;
   padding-left: 2rem;
+
 }
 
 .container-how-works .content .bullets .bullet .p-number {
@@ -746,7 +747,6 @@ header .texts p {
   }
 
   .container-how-works .image {
-    background: url(/images/photos/project-two-2.jpg) no-repeat center center;
     background-size: cover;
     width: 900px;
     max-width: 100%;
@@ -771,8 +771,6 @@ header .texts p {
   }
 
   .container-how-works .content .bullets .bullet {
-    background-color: var(--gold);
-    color: var(--black);
     margin: 1rem 0;
     width: 400px;
     height: 100px;
@@ -821,7 +819,6 @@ header .texts p {
   }
 
   .container-how-works .image {
-    background: url(/images/photos/project-two-2.jpg) no-repeat center center;
     background-size: cover;
     width: 900px;
     max-width: 100%;
@@ -846,8 +843,6 @@ header .texts p {
   }
 
   .container-how-works .content .bullets .bullet {
-    background-color: var(--gold);
-    color: var(--black);
     margin: 1rem 0;
     width: 400px;
     height: 100px;
@@ -1030,11 +1025,7 @@ header .texts p {
   }
 
   .container-projects .project .texts .highlights {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-    max-width: 90%;
- 
+ display: none;
 }
 
 }
@@ -1076,6 +1067,9 @@ header .texts p {
     width: 95%;
   }
 
+    .container-projects .project .texts .highlights {
+ display: none;
+}
 
 }
 
@@ -1819,8 +1813,14 @@ footer p {
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
-    padding: 5rem 2rem;
+    padding: 5rem 0;
   }
+
+  footer p {
+  font-size: 16px;
+  max-width: none;
+  margin: 2rem 5rem;
+}
 
 }
 
