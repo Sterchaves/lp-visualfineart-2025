@@ -286,88 +286,113 @@
   <section class="container-form">
     <div class="form-box">
       <h2>Request a Quote</h2>
-      <form>
-        <div class="line one">
-          <div class="field">
-            <label for="name">Name*</label>
-            <input type="text" name="name" placeholder="Name*" required />
-          </div>
-          <div class="field">
-            <label for="email">Email*</label>
-            <input type="email" name="email" placeholder="Email*" required />
-          </div>
-        </div>
+<form
+  action="https://visualshumacher.us13.list-manage.com/subscribe/post?u=7cb7043b93f956ee4529cd88f&amp;id=6d38acfe0c&amp;f_id=001dc2e1f0"
+  method="POST"
+  id="mc-embedded-subscribe-form"
+  name="mc-embedded-subscribe-form"
+  class="validate"
+  target="_blank"
+  novalidate>
 
-        <div class="line two">
-          <div class="field">
+  <!-- Mailchimp obrigatórios -->
+  <input type="hidden" name="u" value="7cb7043b93f956ee4529cd88f">
+  <input type="hidden" name="id" value="6d38acfe0c">
+  <!-- opcional: tag para organizar seus leads no Mailchimp -->
+  <input type="hidden" name="TAGS" value="Interior Design">
 
-            <label for="phone">WhatsApp (E.164)*</label>
-            <input id="phone" type="tel" name="phone" placeholder="+1XXXXXXXXXX" required inputmode="tel"
-              autocomplete="tel" pattern="^\+1\d{10}$"
-              title="Use the US E.164 format: +1 followed by 10 digits (e.g., +13051234567)"
-              aria-describedby="phone-help" />
-          </div>
-          <div class="field">
-            <label for="company">Company</label>
-            <input id="company" type="text" name="company" placeholder="Company" />
-          </div>
-        </div>
+  <div class="line one">
+    <div class="field">
+      <label for="name">Name*</label>
+      <!-- name trocado para FNAME -->
+      <input type="text" id="name" name="FNAME" placeholder="Name*" required />
+    </div>
+    <div class="field">
+      <label for="email">Email*</label>
+      <!-- name trocado para EMAIL -->
+      <input type="email" id="email" name="EMAIL" placeholder="Email*" required />
+    </div>
+  </div>
 
-        <div class="line three">
-          <div class="field">
-            <label for="project_type">Project Type*</label>
-            <select id="project_type" name="project_type" class="select--light">
-              <option value="" disabled selected hidden>Project Type</option>
-              <option>Interior Design</option>
-              <option>Residential Architecture</option>
-              <option>Commercial Architecture</option>
-              <option>Real Estate Listing</option>
-              <option>Construction Progress</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="city">City*</label>
-            <input type="text" name="city" placeholder="City" />
+  <div class="line two">
+    <div class="field">
+      <label for="phone">WhatsApp (E.164)*</label>
+      <!-- name trocado para PHONE (Mailchimp) -->
+      <input id="phone" type="tel" name="PHONE" placeholder="+1XXXXXXXXXX" required inputmode="tel"
+        autocomplete="tel" pattern="^\+1\d{10}$"
+        title="Use the US E.164 format: +1 followed by 10 digits (e.g., +13051234567)"
+        aria-describedby="phone-help" />
+    </div>
+    <div class="field">
+      <label for="company">Company</label>
+      <!-- name trocado para COMPANY -->
+      <input id="company" type="text" name="COMPANY" placeholder="Company" />
+    </div>
+  </div>
 
-          </div>
+  <div class="line three">
+    <div class="field">
+      <label for="project_type">Project Type*</label>
+      <!-- name trocado para PROJECT -->
+      <select id="project_type" name="PROJECT" class="select--light" required>
+        <option value="" disabled selected hidden>Project Type</option>
+        <option>Interior Design</option>
+        <option>Residential Architecture</option>
+        <option>Commercial Architecture</option>
+        <option>Real Estate Listing</option>
+        <option>Construction Progress</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="city">City*</label>
+      <!-- name trocado para CITY -->
+      <input id="city" type="text" name="CITY" placeholder="City" required />
+    </div>
+  </div>
 
-        </div>
+  <div class="line four">
+    <div class="field">
+      <label for="budget">Estimated Budget*</label>
+      <!-- name trocado para BUDGET -->
+      <select id="budget" name="BUDGET" class="select--light" required>
+        <option value="" disabled selected hidden>Estimated Budget</option>
+        <option>Under $2,500</option>
+        <option>$2,500–$5,000</option>
+        <option>$5,000–$10,000</option>
+        <option>$10,000+</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="timeline">Timeline*</label>
+      <!-- name trocado para TIMELINE -->
+      <select id="timeline" name="TIMELINE" class="select--light" required>
+        <option value="" disabled selected hidden>Timeline</option>
+        <option>ASAP (2–3 weeks)</option>
+        <option>1–2 months</option>
+        <option>3+ months</option>
+      </select>
+    </div>
+  </div>
 
-        <div class="line four">
-          <div class="field">
-            <label for="budget">Estimated Budget*</label>
-            <select id="budget" name="budget" class="select--light">
-              <option value="" disabled selected hidden>Estimated Budget</option>
-              <option>Under $2,500</option>
-              <option>$2,500–$5,000</option>
-              <option>$5,000–$10,000</option>
-              <option>$10,000+</option>
-            </select>
-          </div>
+  <div class="field-textarea">
+    <label for="notes">Project details</label>
+    <!-- name trocado para NOTES -->
+    <textarea id="notes" name="NOTES" placeholder="Tell us about the project…"></textarea>
+  </div>
 
-          <div class="field">
-            <label for="timeline">Timeline*</label>
-            <select id="timeline" name="timeline" class="select--light">
-              <option value="" disabled selected hidden>Timeline</option>
-              <option>ASAP (2–3 weeks)</option>
-              <option>1–2 months</option>
-              <option>3+ months</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-textarea">
-          <label for="notes">Project details</label>
-          <textarea name="notes" placeholder="Tell us about the project…"></textarea>
+  <label id="check">
+    <input id="consent" type="checkbox" required />
+    <p>By submitting, you agree to be contacted about your quote via WhatsApp or email. Message and data rates may apply.</p>
+  </label>
 
-        </div>
-        <label id="check">
-          <input id="consent" type="checkbox" required />
-          <p>By submitting, you agree to be contacted about your quote via WhatsApp or email. Message and data rates may
-            apply.</p>
+  <!-- Honeypot anti-spam do Mailchimp (mantém como está/oculto) -->
+  <div style="position:absolute; left:-5000px;" aria-hidden="true">
+    <input type="text" name="b_7cb7043b93f956ee4529cd88f_6d38acfe0c" tabindex="-1" value="">
+  </div>
 
-        </label>
-        <button type="submit" class="btn-primary">Send Request</button>
-      </form>
+  <button type="submit" class="btn-primary" id="mc-embedded-subscribe">Send Request</button>
+</form>
+
     </div>
 
   </section>
@@ -382,7 +407,6 @@
     </a>
   </footer>
 
-  <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/7cb7043b93f956ee4529cd88f/bf8309ebcde8ae5a25dfc16a0.js");</script>
   <script src="script.js"></script>
 </body>
 
