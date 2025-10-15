@@ -300,15 +300,21 @@
           <div class="field">
             <label for="phone">WhatsApp (E.164)*</label>
             <!-- name trocado para PHONE (Mailchimp) -->
-            <input id="phone" type="tel" name="PHONE" placeholder="+1XXXXXXXXXX" required inputmode="tel"
-              autocomplete="tel" pattern="^\+1\d{10}$"
-              title="Use the US E.164 format: +1 followed by 10 digits (e.g., +13051234567)"
-              aria-describedby="phone-help" />
+<input
+  id="phone"
+  type="tel"
+  name="PHONE"
+  placeholder="+################"
+  required
+  inputmode="tel"
+  autocomplete="tel"
+  pattern="^\+\d{6,15}$"
+/>
           </div>
           <div class="field">
-            <label for="company">Company</label>
+            <label for="company">Company*</label>
             <!-- name trocado para COMPANY -->
-            <input id="company" type="text" name="COMPANY" placeholder="Company" />
+            <input id="company" type="text" name="COMPANY" placeholder="Company" required/>
           </div>
         </div>
 
@@ -334,9 +340,9 @@
 
         <div class="line four">
           <div class="field">
-            <label for="budget">Estimated Budget*</label>
+            <label for="budget">Estimated Budget</label>
             <!-- name trocado para BUDGET -->
-            <select id="budget" name="BUDGET" class="select--light" required>
+            <select id="budget" name="BUDGET" class="select--light">
               <option value="" disabled selected hidden>Estimated Budget</option>
               <option>Under $2,500</option>
               <option>$2,500–$5,000</option>
@@ -345,9 +351,9 @@
             </select>
           </div>
           <div class="field">
-            <label for="timeline">Timeline*</label>
+            <label for="timeline">Timeline</label>
             <!-- name trocado para TIMELINE -->
-            <select id="timeline" name="TIMELINE" class="select--light" required>
+            <select id="timeline" name="TIMELINE" class="select--light">
               <option value="" disabled selected hidden>Timeline</option>
               <option>ASAP (2–3 weeks)</option>
               <option>1–2 months</option>
@@ -377,13 +383,11 @@
       </form>
 
 <!-- Modal dinâmico -->
-<div id="lead-modal" aria-hidden="true" style="
-  position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-  background:rgba(0,0,0,.5); z-index:9999;">
-  <div style="background:#fff; max-width:520px; width:92%; padding:24px; border-radius:16px; text-align:center;">
-    <h3 id="lead-modal-title" style="margin:0 0 8px;"></h3>
-    <p id="lead-modal-msg" style="margin:0 0 16px;"></p>
-    <button id="lead-modal-close" class="btn-primary" style="padding:.6rem 1rem;">OK</button>
+<div id="lead-modal" aria-hidden="true">
+  <div class="modal-card">
+    <h3 id="lead-modal-title" aria-live="polite"></h3>
+    <p id="lead-modal-msg" aria-live="polite"></p>
+    <button id="lead-modal-close" class="btn-primary">OK</button>
   </div>
 </div>
 
