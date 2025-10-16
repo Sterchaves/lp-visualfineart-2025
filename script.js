@@ -134,13 +134,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Helpers de campo
   const field = (name) => form.querySelector(`[name="${name}"]`);
-  function clearFieldErrors() {
-    form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
-  }
-  function markInvalid(name) {
-    const el = field(name);
-    if (el) el.classList.add("is-invalid"); // só cor, sem textos
-  }
+function clearFieldErrors() {
+  form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+  form.querySelectorAll(".field-invalid").forEach(el => el.classList.remove("field-invalid"));
+  const consent = document.getElementById("consent");
+  if (consent) consent.classList.remove("is-invalid");
+}
+
+function markInvalid(name) {
+  const el = form.querySelector(`[name="${name}"]`);
+  if (!el) return;
+  el.classList.add("is-invalid");                    // marca o input/select/textarea
+  const fieldWrap = el.closest(".field");
+  if (fieldWrap) fieldWrap.classList.add("field-invalid"); // marca o wrapper .field
+}
 
   // Normaliza telefone: aceita E.164 (+dddd) OU só dígitos, e envia sempre com +
   function normalizePhoneFlexible(raw) {
