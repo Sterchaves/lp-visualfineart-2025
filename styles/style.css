@@ -1675,6 +1675,7 @@ header .texts p {
   color: var(--white);
   background-color: var(--blue);
   border-radius: 12px;
+  cursor: pointer;
 }
 
 /* FORM - MELHORA DO VISUAL do Checkbox*/
@@ -1851,32 +1852,51 @@ footer p {
 
 /* MODAL */
 
-/* Modal overlay */
-#lead-modal{
-  position:fixed; inset:0;
-  display:none; align-items:center; justify-content:center;
-  background:rgba(0,0,0,.55);
-  z-index:9999;
+#lead-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Cartão do modal */
-#lead-modal .modal-card{
-  background:#fff;
-  width:min(520px,92vw);
-  padding:24px;
-  border-radius:16px;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
-  color:#111; /* força texto escuro */
+#lead-modal .modal-card {
+  background: var(--white);
+  color: #222222;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Títulos e parágrafos do modal */
-#lead-modal .modal-card h3{ margin:0 0 8px; color:#111; }
-#lead-modal .modal-card p{ margin:0 0 16px; color:#333; }
+#lead-modal-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2b8a3e; /* ✅ Green for success */
+  margin-bottom: 0.5rem;
+}
 
-/* Botão do modal (use sua cor primária) */
-#lead-modal .btn-primary{
-  background:#0E3A5E; /* ajuste para sua paleta */
-  color:#fff; border:none;
-  padding:.6rem 1rem; border-radius:8px;
+#lead-modal-msg {
+  font-size: 1rem;
+  color: #444444;
+  margin-bottom: 1.5rem;
+}
+
+#lead-modal-close {
+  background: #2b8a3e;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#lead-modal-close:hover {
+  background: #256f34;
 }
