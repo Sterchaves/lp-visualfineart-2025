@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
 // === FORM SUBMIT (fetch -> /api/subscribe) ==================================
 (function () {
   const form = document.getElementById("lead-form");
@@ -119,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!form || !modal || !titleEl || !msgEl) return;
 
+  // Modal
   function openModal(title, msg, type = "success") {
     titleEl.textContent = title;
     msgEl.textContent = msg;
@@ -127,10 +129,18 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.style.display = "flex";
   }
   function closeModal() { modal.style.display = "none"; }
-
   closeBtn?.addEventListener("click", closeModal);
   modal?.addEventListener("click", e => { if (e.target === modal) closeModal(); });
 
+  // Helpers
+  function fieldEl(name) { return form.querySelector(`[name="${name}"]`); }
+  function clearFieldErrors() {
+    form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+  }
+  function markInvalid(name) {
+    const el = fieldEl(name);
+    if (el) el.classList.add("is-invalid"); // <<< só cor, sem texto
+  }
   function normalizePhone(raw) {
     if (!raw) return "";
     let phone = String(raw).trim().replace(/\s+/g, "").replace(/[().-]/g, "");
@@ -138,32 +148,81 @@ document.addEventListener('DOMContentLoaded', () => {
     return phone;
   }
 
+  // Validação leve (sem mensagens inline)
+  function validate() {
+    clearFieldErrors();
+    let ok = true;
+
+    const email = fieldEl("EMAIL")?.value.trim() || "";
+    const name  = fieldEl("FNAME")?.value.trim() || "";
+    const phone = normalizePhone(fieldEl("PHONE")?.value || "");
+    const projectType = fieldEl("PROJECT")?.value || "";
+    const budget = fieldEl("BUDGET")?.value || "";
+    const timeline = fieldEl("TIMELINE")?.value || "";
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { ok = false; markInvalid("EMAIL"); }
+    if (!name) { ok = false; markInvalid("FNAME"); }
+    if (!phone || !phone.startsWith("+") || !/^\+\d{6,15}$/.test(phone)) { ok = false; markInvalid("PHONE"); }
+    if (!projectType) { ok = false; markInvalid("PROJECT"); }
+    if (!budget) { ok = false; markInvalid("BUDGET"); }
+    if (!timeline) { ok = false; markInvalid("TIMELINE"); }
+
+    return ok;
+  }
+
+  // Mapeia erros do Mailchimp para mensagem do modal
+  function mapMailchimpError(raw) {
+    const text = String(raw || "").toLowerCase();
+    if (text.includes("permanently deleted") || text.includes("cannot be re-imported") || text.includes("gdpr")) {
+      return "This email was permanently removed in the past. To join again, please confirm the resubscription link sent to your inbox.";
+    }
+    if (text.includes("member exists") || text.includes("already a list member")) {
+      return "You are already on our list. Please check your inbox and spam folder.";
+    }
+    if (text.includes("compliance state")) {
+      return "Your address is paused for compliance. Check your inbox for a confirmation email to reactivate.";
+    }
+    if (text.includes("merge fields were invalid") || text.includes("invalid resource")) {
+      return "Please review the required fields and try again.";
+    }
+    if (text.includes("too many requests")) {
+      return "Too many attempts right now. Please try again in a moment.";
+    }
+    if (text.includes("cleaned")) {
+      return "This address was marked as undeliverable. Please use another email.";
+    }
+    return "Could not send your request. Please try again.";
+  }
+
+  function parseBackend(data, resp) {
+    if (data?.ok === true) return { ok: true, message: data.message || "We will contact you shortly." };
+    if (data?.ok === false) return { ok: false, message: mapMailchimpError(data.message || data.detail || data.error || "") };
+    if (data?.status === "error") return { ok: false, message: mapMailchimpError(data.detail || data.title || "") };
+    if (resp && !resp.ok) return { ok: false, message: "Server error. Please try again later." };
+    return { ok: false, message: mapMailchimpError("") };
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    const fd = new FormData(form);
-    let phone = normalizePhone(fd.get("PHONE") || "");
-
-    // Enforce E.164 (+ and 6-15 digits)
-    if (!phone.startsWith("+") || !/^\+\d{6,15}$/.test(phone)) {
-      openModal("Oops…", "Invalid phone number. Use the international E.164 format (e.g., +5511999999999).", "error");
+    if (!validate()) {
+      openModal("Please review the form", "Some fields need your attention.", "error");
       return;
     }
 
+    const fd = new FormData(form);
     const payload = {
       EMAIL: fd.get("EMAIL"),
       FNAME: fd.get("FNAME"),
-      PHONE: phone,
+      PHONE: normalizePhone(fd.get("PHONE") || ""),
       COMPANY: fd.get("COMPANY"),
       PROJECT: fd.get("PROJECT"),
       CITY: fd.get("CITY"),
       BUDGET: fd.get("BUDGET"),
       TIMELINE: fd.get("TIMELINE"),
       NOTES: fd.get("NOTES"),
-      TAGS: "Interior Design",
+      TAGS: "Interior Design"
     };
 
-    // disable button to prevent double submit
     if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = "0.8"; }
 
     try {
@@ -173,25 +232,28 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(payload),
       });
 
-      // In case non-JSON response
       let data = {};
-      try { data = await resp.json(); } catch (_) {
-        data = { ok: false, message: "Unexpected server response." };
-      }
+      try { data = await resp.json(); } catch(_) {}
 
-      if (data.ok) {
-        openModal("Request received! ✅", data.message || "We’ll contact you shortly.", "success");
+      const result = parseBackend(data, resp);
+
+      if (result.ok) {
+        openModal("Request received! ✅", result.message, "success");
         form.reset();
+        clearFieldErrors();
       } else {
-        openModal("Oops…", data.message || "Could not send your request. Please try again.", "error");
+        openModal("Oops…", result.message, "error");
       }
-    } catch (err) {
+    } catch {
       openModal("Oops…", "Network error. Please try again in a moment.", "error");
     } finally {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = ""; }
     }
   });
 })();
+
+
+
 
 // === SMOOTH SCROLL + HIGHLIGHT ==============================================
 (function () {

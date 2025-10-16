@@ -2015,3 +2015,10 @@ footer p {
   border-radius: 8px;
   transition: box-shadow 0.6s ease-out;
 }
+
+
+/* COR AOS CAMPOS DO FORM QUE TEM ERRO */
+.is-invalid { border-color: #e63946 !important; outline: none; }
+.field-error { display:block; margin-top:6px; font-size:.85rem; color:#e63946; }
+#lead-modal.success .modal-box { border-top: 4px solid #16a34a; }
+#lead-modal.error .modal-box { border-top: 4px solid #e11d48; }
