@@ -293,7 +293,7 @@ function markInvalid(name) {
       const result = parseBackend(data, resp);
 
       if (result.ok) {
-        openModal("Request received! ✅", result.message, "success");
+        openModal("Thank you!", "Our team will get back to you within 24 hours.", "success");
         form.reset();
         clearFieldErrors();
         const consent = document.getElementById("consent");
