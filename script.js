@@ -132,49 +132,87 @@ document.addEventListener('DOMContentLoaded', () => {
   closeBtn?.addEventListener("click", closeModal);
   modal?.addEventListener("click", e => { if (e.target === modal) closeModal(); });
 
-  // Helpers
-  function fieldEl(name) { return form.querySelector(`[name="${name}"]`); }
+  // Helpers de campo
+  const field = (name) => form.querySelector(`[name="${name}"]`);
   function clearFieldErrors() {
     form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
   }
   function markInvalid(name) {
-    const el = fieldEl(name);
-    if (el) el.classList.add("is-invalid"); // <<< só cor, sem texto
-  }
-  function normalizePhone(raw) {
-    if (!raw) return "";
-    let phone = String(raw).trim().replace(/\s+/g, "").replace(/[().-]/g, "");
-    if (phone.startsWith("00")) phone = "+" + phone.slice(2);
-    return phone;
+    const el = field(name);
+    if (el) el.classList.add("is-invalid"); // só cor, sem textos
   }
 
-  // Validação leve (sem mensagens inline)
-  function validate() {
+  // Normaliza telefone: aceita E.164 (+dddd) OU só dígitos, e envia sempre com +
+  function normalizePhoneFlexible(raw) {
+    if (!raw) return "";
+    let s = String(raw).trim();
+    // deixa apenas + e dígitos
+    s = s.replace(/[^\d+]/g, "");
+    // remove + duplicados no meio
+    if (s.indexOf("+") > 0) s = s.replace(/\+/g, "");
+    // se começa com +, mantém
+    if (s.startsWith("+")) {
+      const digits = s.slice(1).replace(/\D/g, "");
+      return "+" + digits;
+    }
+    // se for apenas dígitos, aceita e prefixa +
+    const digitsOnly = s.replace(/\D/g, "");
+    return digitsOnly ? "+" + digitsOnly : "";
+  }
+
+  // Validação em duas fases:
+  // Fase 1: obrigatórios preenchidos? (sem checar formato de telefone ainda)
+  // Fase 2: tudo ok? então checa formato de telefone; se falhar, mostra erro específico
+  function validatePhase1() {
     clearFieldErrors();
+
+    const email = field("EMAIL")?.value.trim() || "";
+    const name  = field("FNAME")?.value.trim() || "";
+    const phoneRaw = field("PHONE")?.value || "";
+    const company = field("COMPANY")?.value?.trim() || "";
+    const projectType = field("PROJECT")?.value || "";
+    const city = field("CITY")?.value?.trim() || "";
+    const budget = field("BUDGET")?.value || "";
+    const timeline = field("TIMELINE")?.value || "";
+    const consent = document.getElementById("consent");
+
     let ok = true;
 
-    const email = fieldEl("EMAIL")?.value.trim() || "";
-    const name  = fieldEl("FNAME")?.value.trim() || "";
-    const phone = normalizePhone(fieldEl("PHONE")?.value || "");
-    const projectType = fieldEl("PROJECT")?.value || "";
-    const budget = fieldEl("BUDGET")?.value || "";
-    const timeline = fieldEl("TIMELINE")?.value || "";
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { ok = false; markInvalid("EMAIL"); }
+    // Obrigatórios presentes
     if (!name) { ok = false; markInvalid("FNAME"); }
-    if (!phone || !phone.startsWith("+") || !/^\+\d{6,15}$/.test(phone)) { ok = false; markInvalid("PHONE"); }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) { ok = false; markInvalid("EMAIL"); }
+    if (!phoneRaw) { ok = false; markInvalid("PHONE"); }
+    if (!company) { ok = false; markInvalid("COMPANY"); }
     if (!projectType) { ok = false; markInvalid("PROJECT"); }
+    if (!city) { ok = false; markInvalid("CITY"); }
     if (!budget) { ok = false; markInvalid("BUDGET"); }
     if (!timeline) { ok = false; markInvalid("TIMELINE"); }
+    if (consent && !consent.checked) { ok = false; consent.classList.add("is-invalid"); }
 
     return ok;
   }
 
-  // Mapeia erros do Mailchimp para mensagem do modal
+  function validatePhase2Phone() {
+    const phoneRaw = field("PHONE")?.value || "";
+    const normalized = normalizePhoneFlexible(phoneRaw);
+
+    // Aceita +dddddd (6-15) OU dígitos 10-15 (já normalizados para +)
+    const ok = /^\+\d{6,15}$/.test(normalized);
+    if (!ok) {
+      markInvalid("PHONE");
+      return { ok: false, normalized: null };
+    }
+    // grava de volta o valor normalizado (visual e envio)
+    field("PHONE").value = normalized;
+    return { ok: true, normalized };
+  }
+
+  // Mapeia erros do Mailchimp para mensagem amigável
   function mapMailchimpError(raw) {
     const text = String(raw || "").toLowerCase();
     if (text.includes("permanently deleted") || text.includes("cannot be re-imported") || text.includes("gdpr")) {
-      return "This email was permanently removed in the past. To join again, please confirm the resubscription link sent to your inbox.";
+      return "This email was permanently removed previously. To join again, please confirm the resubscription link sent to your inbox.";
     }
     if (text.includes("member exists") || text.includes("already a list member")) {
       return "You are already on our list. Please check your inbox and spam folder.";
@@ -204,8 +242,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!validate()) {
+
+    // Fase 1: checa obrigatórios preenchidos
+    const basicOk = validatePhase1();
+    if (!basicOk) {
       openModal("Please review the form", "Some fields need your attention.", "error");
+      return;
+    }
+
+    // Fase 2: agora sim checa formato do telefone
+    const phoneCheck = validatePhase2Phone();
+    if (!phoneCheck.ok) {
+      openModal("Oops…", "Invalid phone number. Use international format, e.g., +5511999999999.", "error");
       return;
     }
 
@@ -213,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const payload = {
       EMAIL: fd.get("EMAIL"),
       FNAME: fd.get("FNAME"),
-      PHONE: normalizePhone(fd.get("PHONE") || ""),
+      PHONE: field("PHONE").value, // já normalizado com +
       COMPANY: fd.get("COMPANY"),
       PROJECT: fd.get("PROJECT"),
       CITY: fd.get("CITY"),
@@ -241,6 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal("Request received! ✅", result.message, "success");
         form.reset();
         clearFieldErrors();
+        const consent = document.getElementById("consent");
+        if (consent) consent.classList.remove("is-invalid");
       } else {
         openModal("Oops…", result.message, "error");
       }
@@ -251,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 })();
-
 
 
 
